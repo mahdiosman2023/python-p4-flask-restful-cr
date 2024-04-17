@@ -17,7 +17,7 @@ db.init_app(app)
 api = Api(app)
 
 class Home(Resource):
-    
+
     def get(self):
 
         response_dict = {
@@ -45,13 +45,12 @@ class Newsletters(Resource):
         )
 
         return response
-    
+
     def post(self):
-    
         new_record = Newsletter(
             title=request.form['title'],
             body=request.form['body'],
-    )
+        )
 
         db.session.add(new_record)
         db.session.commit()
@@ -59,9 +58,9 @@ class Newsletters(Resource):
         response_dict = new_record.to_dict()
 
         response = make_response(
-        response_dict,
-        201,
-    )
+            response_dict,
+            201,
+        )
 
         return response
 
@@ -81,9 +80,6 @@ class NewsletterByID(Resource):
         return response
 
 api.add_resource(NewsletterByID, '/newsletters/<int:id>')
-
-
-    
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
